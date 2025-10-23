@@ -3,7 +3,7 @@ using UnityEngine;
 public class RotationScript : MonoBehaviour
 {
     public Camera mainCam;
-    public bool enabled = true;
+    public bool isEnabled = true;
 
     void Start()
     {
@@ -12,7 +12,7 @@ public class RotationScript : MonoBehaviour
 
     void Update()
     {
-        if (enabled)
+        if (isEnabled)
         {
             rotate();
         }

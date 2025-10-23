@@ -52,7 +52,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0.3
+  m_LinearDamping: 0.4
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: ebc6d8af1acf246dda657cf6c0cde85a, type: 2}
@@ -65,7 +65,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &4526134640080605187
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -101,7 +101,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.35
+  m_Radius: 0.4
 --- !u!114 &5036268424068545103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,12 +128,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e2e623dcdf845ca8fa93e81ff9be61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enabled: 1
   playerId: Hero
   health: 3
   rb: {fileID: 1957943061008713656}
   Animator: {fileID: 819957469059498974}
   maxSpeed: 10
-  unchargedKickForce: 150
+  unchargedKickForce: 20
   chargedKickForce: 400
   kickOffMultiplier: 2
   defaultDamping: 0.3
@@ -228,7 +229,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -246,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb97ef9fa11245e2b9148b786fd0bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerId: 
 --- !u!1 &6228638552683894048
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,8 +335,9 @@ MonoBehaviour:
     m_Bits: 128
   validCombatLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   debug: 1
+  playerId: 
 --- !u!1 &8995724394558011391
 GameObject:
   m_ObjectHideFlags: 0
