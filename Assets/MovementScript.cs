@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class MovementScript : MonoBehaviour
 {
-    public string playerName = "Hero";
+    public bool enabled = true;
+    public string playerId = "Hero";
     public int health = 3;
 
     public Rigidbody2D rb;
@@ -39,9 +40,8 @@ public class MovementScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(rb.linearDamping);
 
-        inputCheck();
+        if (enabled) inputCheck();
     }
 
     void inputCheck()
@@ -62,13 +62,11 @@ public class MovementScript : MonoBehaviour
     void defaultDamp()
     {
         rb.linearDamping = defaultDamping;
-        print("Default Damping Applied");
     }
 
     void chargedDamp()
     {
         rb.linearDamping = chargedDamping;
-        print("Charged Damping Applied");
     }
 
     void FixedUpdate()
@@ -120,4 +118,29 @@ public class MovementScript : MonoBehaviour
     public void SetCharged() => isCharged = true;
     public void SetUncharged() => isCharged = false;
     public bool GetKickoffPossible() => kickoffDetector.GetKickoffPossible();
+
+    public void KickApplyDamage()
+    {
+        kickoffDetector.Apply_Damage();
+    }
+
+    public string GetPlayerId()
+    {
+        return playerId;
+    }
+
+    public Vector2 GetKickDirection()
+    {
+        return -transform.up;
+    }
+
+    public void TakeDamage(Vector2 AttackDirection)
+    {
+        Debug.Log("MovementScript: Taking damage!");
+        // Apply knockback
+        rb.AddForce(AttackDirection * 500f, ForceMode2D.Impulse);
+        health -= 1;
+        Debug.Log("Health remaining: " + health);
+        Animator.SetTrigger("StartHurt");
+    }
 }
