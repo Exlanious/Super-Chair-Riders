@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MovementScript : MonoBehaviour
 {
     public string playerName = "Hero";
-
     public int health = 3;
 
     public Rigidbody2D rb;
@@ -15,12 +15,21 @@ public class MovementScript : MonoBehaviour
     public float chargedKickForce = 1000f;
     public float kickOffMultiplier = 1.5f;
 
-    private bool isCharged = false;
+    public float defaultDamping = 0.3f;
+    public float chargedDamping = 1.0f;
 
+    private bool isCharged = false;
     private KickoffDetector kickoffDetector;
 
+    [Header("Drift Settings")]
+    public float driftForce = 100f;
+    public float requiredDriftSpeed = 3f;
+    public float driftBuildUpRate = 3f;     // How quickly drift strength builds (higher = faster)
+    public float driftDecayRate = 5f;       // How quickly it fades when released
+    public float maxDriftMultiplier = 1f;   // Maximum drift strength multiplier
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private float currentDriftMultiplier = 0f;
+
     void Start()
     {
         kickoffDetector = GetComponentInChildren<KickoffDetector>();
@@ -28,11 +37,15 @@ public class MovementScript : MonoBehaviour
         Animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        Debug.Log(rb.linearDamping);
 
+        inputCheck();
+    }
 
+    void inputCheck()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SetUncharged();
@@ -46,17 +59,53 @@ public class MovementScript : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    void defaultDamp()
     {
+        rb.linearDamping = defaultDamping;
+        print("Default Damping Applied");
+    }
 
+    void chargedDamp()
+    {
+        rb.linearDamping = chargedDamping;
+        print("Charged Damping Applied");
     }
 
     void FixedUpdate()
     {
+        // Cap speed
         if (rb.linearVelocity.magnitude > maxSpeed)
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
-    }
 
+        // Skip if nearly stationary
+        if (rb.linearVelocity.sqrMagnitude < requiredDriftSpeed * requiredDriftSpeed)
+        {
+            currentDriftMultiplier = Mathf.MoveTowards(currentDriftMultiplier, 0f, driftDecayRate * Time.fixedDeltaTime);
+            return;
+        }
+
+        // Get direction
+        Vector2 velDir = rb.linearVelocity.normalized;
+        Vector2 velRight = new Vector2(velDir.y, -velDir.x);
+        Vector2 velLeft = new Vector2(-velDir.y, velDir.x);
+
+        bool driftLeft = Input.GetKey(KeyCode.A);
+        bool driftRight = Input.GetKey(KeyCode.D);
+
+        if (driftLeft || driftRight)
+        {
+            // Gradually build up drift multiplier
+            currentDriftMultiplier = Mathf.MoveTowards(currentDriftMultiplier, maxDriftMultiplier, driftBuildUpRate * Time.fixedDeltaTime);
+
+            Vector2 driftDir = driftLeft ? velLeft : velRight;
+            rb.AddForce(driftDir * driftForce * currentDriftMultiplier * Time.fixedDeltaTime, ForceMode2D.Force);
+        }
+        else
+        {
+            // Decay drift strength when not holding drift keys
+            currentDriftMultiplier = Mathf.MoveTowards(currentDriftMultiplier, 0f, driftDecayRate * Time.fixedDeltaTime);
+        }
+    }
 
     public void PhysicsKick()
     {
@@ -64,28 +113,11 @@ public class MovementScript : MonoBehaviour
         if (kickoffDetector.GetKickoffPossible())
             kickOffForce *= kickOffMultiplier;
         rb.AddForce(transform.up * kickOffForce);
-        print(isCharged ? "Charged Kick!" : "Uncharged Kick!");
-        print("Kickoff Executed: " + kickoffDetector.GetKickoffPossible());
     }
 
-    public float GetSpeed()
-    {
-        return rb.linearVelocity.magnitude;
-    }
+    public float GetSpeed() => rb.linearVelocity.magnitude;
 
-    public void SetCharged()
-    {
-        isCharged = true;
-    }
-
-    public void SetUncharged()
-    {
-        isCharged = false;
-    }
-
-    public bool GetKickoffPossible()
-    {
-        return kickoffDetector.GetKickoffPossible();
-    }
-
+    public void SetCharged() => isCharged = true;
+    public void SetUncharged() => isCharged = false;
+    public bool GetKickoffPossible() => kickoffDetector.GetKickoffPossible();
 }

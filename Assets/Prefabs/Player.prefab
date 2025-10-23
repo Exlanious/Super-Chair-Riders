@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5036268424068545103}
   - component: {fileID: 8672173791309490409}
   - component: {fileID: 819957469059498974}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ Rigidbody2D:
   m_LinearDamping: 0.3
   m_AngularDamping: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ebc6d8af1acf246dda657cf6c0cde85a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
+  enabled: 0
 --- !u!114 &8672173791309490409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,12 +129,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: Hero
   health: 3
-  rb: {fileID: 0}
-  Animator: {fileID: 0}
+  rb: {fileID: 1957943061008713656}
+  Animator: {fileID: 819957469059498974}
   maxSpeed: 10
-  unchargedKickForce: 100
-  chargedKickForce: 300
-  kickOffMultiplier: 3
+  unchargedKickForce: 150
+  chargedKickForce: 400
+  kickOffMultiplier: 2
+  defaultDamping: 0.3
+  chargedDamping: 2
+  driftForce: 200
+  requiredDriftSpeed: 5
+  driftBuildUpRate: 1.5
+  driftDecayRate: 5
+  maxDriftMultiplier: 1
 --- !u!95 &819957469059498974
 Animator:
   serializedVersion: 7
@@ -168,7 +176,7 @@ GameObject:
   - component: {fileID: 2318540319177274066}
   - component: {fileID: 2348156955497323984}
   - component: {fileID: 1243863032932371406}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KickoffHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,8 +192,8 @@ Transform:
   m_GameObject: {fileID: 6228638552683894048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071067, w: 0.7071069}
-  m_LocalPosition: {x: 0, y: -0.8691, z: 0}
-  m_LocalScale: {x: 0.4618, y: 0.6, z: 1}
+  m_LocalPosition: {x: -0, y: -0.796, z: 0}
+  m_LocalScale: {x: 0.4618, y: 0.4875, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1360577900555650317}
@@ -294,6 +302,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa010b01b7c54c6297d8bd020c6d9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  debug: 1
 --- !u!1 &8995724394558011391
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7568024855873425103}
   - component: {fileID: 2659044684404381089}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +361,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c502680b192924c6da341318ba629a20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
