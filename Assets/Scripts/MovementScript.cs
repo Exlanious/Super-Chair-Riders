@@ -143,4 +143,23 @@ public class MovementScript : MonoBehaviour
         Debug.Log("Health remaining: " + health);
         Animator.SetTrigger("StartHurt");
     }
+
+    public void OnKick(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Kick input received");
+        if (ctx.performed)
+        {
+            // Button pressed (like GetKeyDown)
+            SetUncharged();
+            Animator.ResetTrigger("ReleaseCharge");
+            Animator.SetTrigger("StartCharge");
+        }
+
+        if (ctx.canceled)
+        {
+            // Button released (like GetKeyUp)
+            Animator.ResetTrigger("StartCharge");
+            Animator.SetTrigger("ReleaseCharge");
+        }
+    }
 }
