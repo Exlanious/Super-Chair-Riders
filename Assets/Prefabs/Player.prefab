@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5036268424068545103}
   - component: {fileID: 8672173791309490409}
   - component: {fileID: 819957469059498974}
+  - component: {fileID: 6350102495409999627}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -52,7 +53,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0.3
+  m_LinearDamping: 0.4
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: ebc6d8af1acf246dda657cf6c0cde85a, type: 2}
@@ -65,7 +66,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &4526134640080605187
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.35
+  m_Radius: 0.4
 --- !u!114 &5036268424068545103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
-  enabled: 1
+  isEnabled: 1
 --- !u!114 &8672173791309490409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,12 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e2e623dcdf845ca8fa93e81ff9be61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enabled: 1
   playerId: Hero
   health: 3
   rb: {fileID: 1957943061008713656}
   Animator: {fileID: 819957469059498974}
   maxSpeed: 10
-  unchargedKickForce: 150
+  unchargedKickForce: 20
   chargedKickForce: 400
   kickOffMultiplier: 2
   defaultDamping: 0.3
@@ -165,6 +167,68 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6350102495409999627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358781235163653591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e81ffe456165e49948897028909cf68b, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5036268424068545103}
+        m_TargetAssemblyTypeName: RotationScript, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 2988aa11-fa25-4de8-ae5c-4d848ef23e85
+    m_ActionName: 'Gameplay/Move[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8672173791309490409}
+        m_TargetAssemblyTypeName: MovementScript, Assembly-CSharp
+        m_MethodName: OnKick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 40ed25ed-4414-418d-bb03-0aad87d61168
+    m_ActionName: 'Gameplay/Kick[/SwitchProControllerHID/rightTrigger,/SwitchProControllerHID2/rightTrigger]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &5251764647652669925
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +292,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -246,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb97ef9fa11245e2b9148b786fd0bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerId: 
 --- !u!1 &6228638552683894048
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,8 +398,9 @@ MonoBehaviour:
     m_Bits: 128
   validCombatLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   debug: 1
+  playerId: 
 --- !u!1 &8995724394558011391
 GameObject:
   m_ObjectHideFlags: 0
