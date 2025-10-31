@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
@@ -8,7 +8,12 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private string itemTag = "Item";
     [SerializeField] private bool debugLog = true;
 
-    // Boolean states for unique items
+    [Header("Item Prefabs (Drag from Inspector)")]
+    [SerializeField] private GameObject sniperPrefab;
+    [SerializeField] private GameObject sodaPrefab;
+    [SerializeField] private GameObject plungerPrefab;
+
+    // Item state tracking
     [SerializeField] private bool hasSniper;
     [SerializeField] private bool hasSoda;
     [SerializeField] private bool hasPlunger;
@@ -16,12 +21,12 @@ public class ItemCollector : MonoBehaviour
     public bool HasSniper => hasSniper;
     public bool HasSoda => hasSoda;
     public bool HasPlunger => hasPlunger;
-    // References for applying effects
+
+    [Header("Effect Settings")]
     [SerializeField] private MovementScript movement;
     [SerializeField] private int healthBoost = 1;
     [SerializeField] private float speedBoost = 5f;
     [SerializeField] private float speedDuration = 5f;
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -37,15 +42,12 @@ public class ItemCollector : MonoBehaviour
             case "Sniper":
                 hasSniper = true;
                 break;
-
             case "Soda":
                 hasSoda = true;
                 break;
-
             case "Plunger":
                 hasPlunger = true;
                 break;
-
             case "Health":
                 if (movement != null)
                 {
@@ -53,7 +55,6 @@ public class ItemCollector : MonoBehaviour
                     if (debugLog) Debug.Log("[ItemCollector] Health increased!");
                 }
                 break;
-
             case "Speed":
                 if (movement != null)
                 {
@@ -61,7 +62,6 @@ public class ItemCollector : MonoBehaviour
                     if (debugLog) Debug.Log("[ItemCollector] Speed boost applied!");
                 }
                 break;
-
             default:
                 if (debugLog) Debug.Log($"[ItemCollector] Unknown item: {itemName}");
                 break;
@@ -71,11 +71,63 @@ public class ItemCollector : MonoBehaviour
         Destroy(obj);
     }
 
-    private System.Collections.IEnumerator TempSpeedBoost()
+    private IEnumerator TempSpeedBoost()
     {
         float originalSpeed = movement.maxSpeed;
         movement.maxSpeed += speedBoost;
         yield return new WaitForSeconds(speedDuration);
         movement.maxSpeed = originalSpeed;
+    }
+
+    // Drop held item when kicked
+    public void DropCurrentItem()
+    {
+        Vector2 dropPosition = transform.position;
+        GameObject itemToDrop = null;
+
+        if (hasSniper)
+        {
+            itemToDrop = sniperPrefab;
+            hasSniper = false;
+        }
+        else if (hasSoda)
+        {
+            itemToDrop = sodaPrefab;
+            hasSoda = false;
+        }
+        else if (hasPlunger)
+        {
+            itemToDrop = plungerPrefab;
+            hasPlunger = false;
+        }
+
+        if (itemToDrop != null)
+        {
+            GameObject dropped = Instantiate(itemToDrop, dropPosition, Quaternion.identity);
+
+            // Add bounce force
+            Rigidbody2D rb = dropped.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                Vector2 randomDir = Random.insideUnitCircle.normalized;
+                rb.AddForce(randomDir * 3f, ForceMode2D.Impulse);
+            }
+
+            // Temporarily disable pickup
+            Collider2D col = dropped.GetComponent<Collider2D>();
+            if (col != null)
+            {
+                col.enabled = false;
+                StartCoroutine(ReenablePickup(col, 1f));
+            }
+
+            if (debugLog) Debug.Log($"[ItemCollector] Dropped: {itemToDrop.name}");
+        }
+    }
+
+    private IEnumerator ReenablePickup(Collider2D collider, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        collider.enabled = true;
     }
 }
