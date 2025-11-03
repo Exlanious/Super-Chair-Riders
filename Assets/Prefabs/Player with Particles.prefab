@@ -4906,6 +4906,8 @@ GameObject:
   - component: {fileID: 8672173791309490409}
   - component: {fileID: 819957469059498974}
   - component: {fileID: -2073090689640923449}
+  - component: {fileID: 605036887651395998}
+  - component: {fileID: 734622637181093295}
   m_Layer: 6
   m_Name: Player with Particles
   m_TagString: Untagged
@@ -5009,7 +5011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
-  enabled: 1
+  isEnabled: 1
 --- !u!114 &8672173791309490409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5074,6 +5076,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 1197726743181625319}
   debugMode: 1
+--- !u!114 &605036887651395998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358781235163653591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d91114901563cd4aacccc8f24a2ef56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  itemTag: Item
+  debugLog: 1
+  hasSniper: 0
+  hasSoda: 0
+  hasPlunger: 0
+  movement: {fileID: 8672173791309490409}
+  healthBoost: 1
+  speedBoost: 5
+  speedDuration: 5
+--- !u!114 &734622637181093295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358781235163653591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae0f298ca34fc41971e0b9c631b503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3282847047599832762
 GameObject:
   m_ObjectHideFlags: 0

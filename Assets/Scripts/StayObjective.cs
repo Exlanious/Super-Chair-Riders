@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [RequireComponent(typeof(Collider2D))]
 public class StayObjective : MonoBehaviour
 {
@@ -11,11 +10,13 @@ public class StayObjective : MonoBehaviour
         public string id;
         public float time;
         public Color color;
+
         public PlayerTime(string id, Color color, float time)
         {
-            this.id = id; this.color = color; this.time = time;
+            this.id = id;
+            this.color = color;
+            this.time = time;
         }
-
     }
 
     [Header("References")]
@@ -24,39 +25,40 @@ public class StayObjective : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
 
     [Header("Settings")]
-    [SerializeField] private float requiredTime; // in seconds
+    [SerializeField] private float requiredTime = 5f; // in seconds
+    [SerializeField] private bool useRandomColor = false;
 
     [Header("GameEnd")]
     [SerializeField] private GameLoader loader;
 
     [Header("Runtime")]
     [SerializeField] private PlayerTime currentPlayerTime;
-    [SerializeField] private List<MovementScript> players;
+    [SerializeField] private List<MovementScript> players = new();
 
     void Awake()
     {
-        if (_collider == null) _collider = GetComponent<Collider2D>();
-        if (_collider == null) Debug.LogError("No collider attached to the stay objective.");
+        if (_collider == null)
+            _collider = GetComponent<Collider2D>();
+
+        if (_collider == null)
+            Debug.LogError("No collider attached to the StayObjective.");
     }
 
     void Update()
     {
         if (currentPlayerTime == null) return;
         if (players.Count > 1) return;
+
         if (players.Count == 1)
         {
             if (currentPlayerTime.id == players[0].playerId)
-            {
                 currentPlayerTime.time++;
-            }
             else
-            {
                 currentPlayerTime.time--;
-            }
 
             if (currentPlayerTime.time <= 0)
             {
-                Color color = new Color(Random.value, Random.value, Random.value);
+                Color color = GetPlayerColor(players[0]);
                 currentPlayerTime = new PlayerTime(players[0].playerId, color, 0);
                 _renderer.color = color;
             }
@@ -65,9 +67,9 @@ public class StayObjective : MonoBehaviour
         if (currentPlayerTime.time >= requiredTime)
         {
             Debug.Log($"Player {currentPlayerTime.id} won!");
-            //temporary
             loader.LoadScene();
         }
+
         scalePercentage.percentage = currentPlayerTime.time / requiredTime;
     }
 
@@ -80,7 +82,7 @@ public class StayObjective : MonoBehaviour
 
             if (currentPlayerTime == null)
             {
-                Color color = new Color(Random.value, Random.value, Random.value);
+                Color color = GetPlayerColor(playerMovement);
                 currentPlayerTime = new PlayerTime(playerMovement.playerId, color, 0);
                 _renderer.color = color;
             }
@@ -96,8 +98,12 @@ public class StayObjective : MonoBehaviour
         }
     }
 
+    private Color GetPlayerColor(MovementScript player)
+    {
+        if (useRandomColor)
+            return new Color(Random.value, Random.value, Random.value);
 
-
-
-
+        ColorIdentity id = player.GetComponent<ColorIdentity>();
+        return id != null ? id.color : Color.white;
+    }
 }
