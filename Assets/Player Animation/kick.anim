@@ -307,22 +307,7 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 16
-  m_PPtrCurves:
-  - serializedVersion: 2
-    curve:
-    - time: 0
-      value: {fileID: -8254932462476682504, guid: 999286963e12a4cbc94aa3ce6b9a9e7b, type: 3}
-    - time: 0.05
-      value: {fileID: -5024198240200217461, guid: abea0f792e42b439cabae3bc0d757383, type: 3}
-    - time: 0.21666667
-      value: {fileID: -5024198240200217461, guid: abea0f792e42b439cabae3bc0d757383, type: 3}
-    - time: 0.28333333
-      value: {fileID: -5024198240200217461, guid: abea0f792e42b439cabae3bc0d757383, type: 3}
-    attribute: m_Sprite
-    path: Sprite2D
-    classID: 212
-    script: {fileID: 0}
-    flags: 2
+  m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -386,15 +371,6 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 3064704361
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    - serializedVersion: 2
-      path: 3064704361
       attribute: 1038215693
       script: {fileID: 0}
       typeID: 212
@@ -402,17 +378,13 @@ AnimationClip:
       isPPtrCurve: 0
       isIntCurve: 0
       isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: -8254932462476682504, guid: 999286963e12a4cbc94aa3ce6b9a9e7b, type: 3}
-    - {fileID: -5024198240200217461, guid: abea0f792e42b439cabae3bc0d757383, type: 3}
-    - {fileID: -5024198240200217461, guid: abea0f792e42b439cabae3bc0d757383, type: 3}
-    - {fileID: -5024198240200217461, guid: abea0f792e42b439cabae3bc0d757383, type: 3}
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.3
+    m_StopTime: 0.28333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -949,6 +921,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: ShowIdle
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.033333335
     functionName: KickApplyDamage
     data: 
@@ -958,6 +937,20 @@ AnimationClip:
     messageOptions: 0
   - time: 0.05
     functionName: PhysicsKick
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.06666667
+    functionName: ShowKick
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.18333334
+    functionName: ShowIdle
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
