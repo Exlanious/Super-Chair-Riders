@@ -26,6 +26,9 @@ public class StayObjective : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float requiredTime; // in seconds
 
+    [Header("GameEnd")]
+    [SerializeField] private GameLoader loader;
+
     [Header("Runtime")]
     [SerializeField] private PlayerTime currentPlayerTime;
     [SerializeField] private List<MovementScript> players;
@@ -62,6 +65,8 @@ public class StayObjective : MonoBehaviour
         if (currentPlayerTime.time >= requiredTime)
         {
             Debug.Log($"Player {currentPlayerTime.id} won!");
+            //temporary
+            loader.LoadScene();
         }
         scalePercentage.percentage = currentPlayerTime.time / requiredTime;
     }

@@ -8,7 +8,7 @@ public class GameLoader : MonoBehaviour
     public string sceneToLoad;
 
     [Header("References")]
-    public DeviceMananager manager;
+    public DeviceMananager inputManager;
     public Transform screenCoverup;
 
     [Header("Coverup Settings")]
@@ -24,7 +24,7 @@ public class GameLoader : MonoBehaviour
 
     void Start()
     {
-        if (manager == null)
+        if (inputManager == null)
         {
             manualMode = true;
             Debug.LogWarning("[GameLoader] No DeviceManager found. Using manual mode (Space key).");
@@ -41,18 +41,33 @@ public class GameLoader : MonoBehaviour
         if (!active || isLoading)
             return;
 
+        IEnumerator coroutine = LoadSceneCoroutine();
+        if (screenCoverup != null)
+            coroutine = LoadSceneWithCoverupCoroutine();
+
         if (manualMode && Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(LoadSceneWithCoverup());
+            StartCoroutine(coroutine);
         }
 
-        if (!manualMode && manager != null && manager.InputReady())
+        if (!manualMode && inputManager != null && inputManager.InputReady())
         {
-            StartCoroutine(LoadSceneWithCoverup());
+            StartCoroutine(coroutine);
         }
     }
 
-    private IEnumerator LoadSceneWithCoverup()
+    public void LoadScene()
+    {
+        StartCoroutine(LoadSceneCoroutine());
+    }
+
+    private IEnumerator LoadSceneCoroutine()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+        yield return null;
+    }
+
+    private IEnumerator LoadSceneWithCoverupCoroutine()
     {
         isLoading = true;
 
