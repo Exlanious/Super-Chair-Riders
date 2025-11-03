@@ -4947,7 +4947,6 @@ Transform:
   - {fileID: 4222249496542803256}
   - {fileID: 7684669008537502546}
   - {fileID: 9199623774053687276}
-  - {fileID: 1621774821940610571}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1957943061008713656
@@ -5040,8 +5039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e2e623dcdf845ca8fa93e81ff9be61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory:
-  - 
   isEnabled: 1
   playerId: Hero
   health: 3
@@ -5176,6 +5173,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d5caf07dc744cf2ba28bb36e7d7bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory:
+  - 
+  abilityHolderObject: {fileID: 841176009136156197}
 --- !u!1 &5251764647652669925
 GameObject:
   m_ObjectHideFlags: 0
@@ -10478,7 +10478,7 @@ Transform:
   - {fileID: 7396888282937707440}
   - {fileID: 4219840756459621241}
   - {fileID: 6758306195770281415}
-  m_Father: {fileID: 1360577900555650317}
+  m_Father: {fileID: 7568024855873425103}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &841176009136156197
 MonoBehaviour:
@@ -10615,6 +10615,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4995006049142629845}
+  - {fileID: 1621774821940610571}
   m_Father: {fileID: 1360577900555650317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2659044684404381089
@@ -10684,9 +10685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201948254de264840ba97a66607fdd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSprite: {fileID: -4994488300264160238, guid: f2c0fa9ee1c774218a73c3fa56ef505c, type: 3}
-  kickSprite: {fileID: 3823637822182803082, guid: f2c0fa9ee1c774218a73c3fa56ef505c, type: 3}
-  holdSprite: {fileID: 152939613466158542, guid: f2c0fa9ee1c774218a73c3fa56ef505c, type: 3}
-  hurtSprite: {fileID: 5926019354717316057, guid: f2c0fa9ee1c774218a73c3fa56ef505c, type: 3}
+  playerInventory: {fileID: 1884329587743446904}
+  idleEmptySprite: {fileID: 5391098926311352343, guid: 2bc19419a5277444e9b44209a18391ba, type: 3}
+  idleHoldSprite: {fileID: 152939613466158542, guid: f2c0fa9ee1c774218a73c3fa56ef505c, type: 3}
+  kickEmptySprite: {fileID: 3823637822182803082, guid: f2c0fa9ee1c774218a73c3fa56ef505c, type: 3}
+  kickHoldSprite: {fileID: 5084511672783117907, guid: f2c0fa9ee1c774218a73c3fa56ef505c, type: 3}
+  hurtSprite: {fileID: -7503425587544688817, guid: 2bc19419a5277444e9b44209a18391ba, type: 3}
   spriteRenderer: {fileID: 2659044684404381089}
   currentSprite: {fileID: 0}

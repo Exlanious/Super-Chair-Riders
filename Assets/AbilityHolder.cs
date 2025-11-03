@@ -14,6 +14,7 @@ public class AbilityHolder : MonoBehaviour
     void Start()
     {
         abilities = new GameObject[] { plunger, soda, sniper };
+        // set the ability to soda
 
     }
 
@@ -23,22 +24,26 @@ public class AbilityHolder : MonoBehaviour
 
     }
 
+    // method to disable all abilities, since inventory is empty
+    public void ClearHeldAbility()
+    {
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            if (abilities[i] != null)
+            {
+                abilities[i].SetActive(false);
+            }
+        }
+    }
+
     public void SetCurrentHeldAbility(int index)
     {
         // get the sprite renderers of all abilities and disable them except the current one
         for (int i = 0; i < abilities.Length; i++)
         {
-            SpriteRenderer sr = abilities[i].GetComponent<SpriteRenderer>();
-            if (sr != null)
+            if (abilities[i] != null)
             {
-                if (i == index)
-                {
-                    sr.enabled = true;
-                }
-                else
-                {
-                    sr.enabled = false;
-                }
+                abilities[i].SetActive(i == index);
             }
         }
 

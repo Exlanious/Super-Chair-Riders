@@ -4,8 +4,7 @@ using UnityEngine.InputSystem;
 
 public class MovementScript : MonoBehaviour
 {
-    public string[] inventory = new string[1];
-    //  set to soda for testing
+
 
     public bool isEnabled = true;
     public string playerId = "Hero";
@@ -50,8 +49,7 @@ public class MovementScript : MonoBehaviour
 
     void Start()
     {
-        // FOR TESTING SET INVENTORY TO SODA
-        inventory[0] = "Soda";
+
 
         kickoffDetector = GetComponentInChildren<KickoffDetector>();
         rb = GetComponent<Rigidbody2D>();
