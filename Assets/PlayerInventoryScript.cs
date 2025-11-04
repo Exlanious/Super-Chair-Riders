@@ -8,6 +8,7 @@ public class PlayerInventoryScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        ItemRemove();
 
     }
 
@@ -16,6 +17,18 @@ public class PlayerInventoryScript : MonoBehaviour
     {
 
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        GameObject obj = other.gameObject;
+        CollectableItemScript itemScript = obj.GetComponent<CollectableItemScript>();
+        if (itemScript != null)
+        {
+            string itemName = itemScript.getItemName();
+            ItemPickup(itemName);
+            Destroy(obj); // remove the collected item from the scene
+        }
     }
 
     void ItemPickup(string itemName)

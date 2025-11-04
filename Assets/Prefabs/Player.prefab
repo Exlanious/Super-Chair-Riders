@@ -5046,12 +5046,12 @@ MonoBehaviour:
   rb: {fileID: 1957943061008713656}
   Animator: {fileID: 819957469059498974}
   maxSpeed: 10
-  unchargedKickForce: 20
-  chargedKickForce: 400
-  unchargedKickOffForce: 450
+  unchargedKickForce: 10
+  chargedKickForce: 100
+  unchargedKickOffForce: 1400
   chargedKickOffForce: 1500
   BoostedKickMultiplier: 1
-  defaultDamping: 0.3
+  defaultDamping: 0.6
   chargedDamping: 1
   driftForce: 200
   requiredDriftSpeed: 5

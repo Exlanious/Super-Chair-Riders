@@ -38,8 +38,6 @@ public class CharacterSpritesScript : MonoBehaviour
         SetSprite(initial);
     }
 
-
-
     // internal helper: store the sprite in currentSprite. LateUpdate will apply it to the renderer.
     private void SetSprite(Sprite s)
     {
