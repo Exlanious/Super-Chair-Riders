@@ -49,8 +49,6 @@ public class MovementScript : MonoBehaviour
 
     void Start()
     {
-
-
         kickoffDetector = GetComponentInChildren<KickoffDetector>();
         rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
@@ -229,20 +227,48 @@ public class MovementScript : MonoBehaviour
 
     public void OnKick(InputAction.CallbackContext ctx)
     {
+        float val = ctx.ReadValue<float>();
+        if (ctx.control.name != "rightTrigger")
+        {
+            print("not right trigger");
+
+        }
+        else
+        {
+            if (ctx.performed)
+            {
+                SetUncharged();
+                Animator.ResetTrigger("ReleaseCharge");
+                Animator.SetTrigger("StartCharge");
+            }
+
+            if (ctx.canceled)
+            {
+                // Button released (like GetKeyUp)
+                Animator.ResetTrigger("StartCharge");
+                Animator.SetTrigger("ReleaseCharge");
+            }
+        }
+
+        //Debug.Log("Kick input received");
+
+    }
+
+    public void OnUse(InputAction.CallbackContext ctx)
+    {
         //Debug.Log("Kick input received");
         if (ctx.performed)
         {
-            SetUncharged();
-            Animator.ResetTrigger("ReleaseCharge");
-            Animator.SetTrigger("StartCharge");
+
+
         }
 
         if (ctx.canceled)
         {
-            // Button released (like GetKeyUp)
-            Animator.ResetTrigger("StartCharge");
-            Animator.SetTrigger("ReleaseCharge");
+            print("hold release");
         }
     }
+
+
 
 }
