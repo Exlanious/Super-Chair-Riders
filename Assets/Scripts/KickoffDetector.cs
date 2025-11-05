@@ -79,22 +79,22 @@ public class KickoffDetector : MonoBehaviour
     // Transitions any players inside the hitbox into the hurt state.
     public void Apply_Damage()
     {
-        Debug.Log("Damage was applied to all inside.");
+        //Debug.Log("Damage was applied to all inside.");
         Collider2D[] overlaps = Physics2D.OverlapCircleAll(transform.position, 1f, validCombatLayers);
         foreach (var overlap in overlaps)
         {
-            Debug.Log("Attempted to run ReceiveDamage()");
+            //Debug.Log("Attempted to run ReceiveDamage()");
             // gets component attatched to game object that is PlayerHurtbox.cs script
             var player_hurtbox_script = overlap.gameObject.GetComponent<PlayerHurtbox>();
             if (player_hurtbox_script != null && player_hurtbox_script.GetPlayerId() != playerId)
             {
-                Debug.Log("Other enemy hitbox found, receiving dmg.");
+                //Debug.Log("Other enemy hitbox found, receiving dmg.");
                 // A vector 2 that contains the global position of KickoffDetector
                 player_hurtbox_script.ReceiveDamage(movementScript.GetKickDirection());
             }
             else
             {
-                Debug.Log("No PlayerHurtbox script found or same playerId.");
+                //Debug.Log("No PlayerHurtbox script found or same playerId.");
             }
         }
     }

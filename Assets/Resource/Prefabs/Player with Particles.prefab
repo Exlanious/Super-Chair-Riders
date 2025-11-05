@@ -5009,7 +5009,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
-  enabled: 1
+  isEnabled: 1
+  rotationSpeed: 20
 --- !u!114 &8672173791309490409
 MonoBehaviour:
   m_ObjectHideFlags: 0

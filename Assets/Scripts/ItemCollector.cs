@@ -16,6 +16,7 @@ public class ItemCollector : MonoBehaviour
     public bool HasSniper => hasSniper;
     public bool HasSoda => hasSoda;
     public bool HasPlunger => hasPlunger;
+
     // References for applying effects
     [SerializeField] private MovementScript movement;
     [SerializeField] private int healthBoost = 1;

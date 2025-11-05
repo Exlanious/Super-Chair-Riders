@@ -7,6 +7,7 @@ public class RotationScript : MonoBehaviour
     public Camera mainCam;
     public bool isEnabled = true;
     private Vector2 movementInput;
+    public float rotationSpeed = 20f;
 
     void Start()
     {
@@ -26,16 +27,20 @@ public class RotationScript : MonoBehaviour
 
     public void rotate()
     {
-        // Vector3 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        // Vector3 direction = mousePos - transform.position;
-        // float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 270f;
-        // transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        // Use left stick input for rotation if available
         if (movementInput.sqrMagnitude > 0.01f)
         {
+            // Set stickAngle to angle of left stick input
             float stickAngle = Mathf.Atan2(movementInput.y, movementInput.x) * Mathf.Rad2Deg + 270f;
-            transform.rotation = Quaternion.Euler(0f, 0f, stickAngle);
+
+            // Lerp at an adjustable speed towards the target angle
+            float currentZ = transform.rotation.eulerAngles.z;
+            float newZ = Mathf.LerpAngle(currentZ, stickAngle, rotationSpeed * Time.deltaTime);
+
+            transform.rotation = Quaternion.Euler(0f, 0f, newZ);
         }
+
+
+
     }
     public void OnMove(InputAction.CallbackContext ctx)
     {
