@@ -1683,6 +1683,18 @@ PrefabInstance:
       propertyPath: mainCam
       value: 
       objectReference: {fileID: 390480168}
+    - target: {fileID: 6350102495409999627, guid: f8f86c3590d2a4b9b92755b9a0499b7a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350102495409999627, guid: f8f86c3590d2a4b9b92755b9a0499b7a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6350102495409999627, guid: f8f86c3590d2a4b9b92755b9a0499b7a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
