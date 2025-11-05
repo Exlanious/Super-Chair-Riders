@@ -36,15 +36,15 @@ public class PlayerInventoryScript : MonoBehaviour
         inventory[0] = itemName;
         // if the string is "plunger", "soda", or "sniper", swap to that ability
         // AWFUL CODE IM SORRY
-        if (itemName == "Plunger")
+        if (itemName == "plunger")
         {
             SwapToPlunger();
         }
-        else if (itemName == "Soda")
+        else if (itemName == "soda")
         {
             SwapToSoda();
         }
-        else if (itemName == "Sniper")
+        else if (itemName == "sniper")
         {
             SwapToSniper();
         }
