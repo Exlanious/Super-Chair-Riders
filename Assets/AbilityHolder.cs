@@ -15,6 +15,7 @@ public class AbilityHolder : MonoBehaviour
     {
         abilities = new GameObject[] { plunger, soda, sniper };
         // set the ability to soda
+        ClearHeldAbility();
 
     }
 

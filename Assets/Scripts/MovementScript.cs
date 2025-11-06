@@ -44,7 +44,7 @@ public class MovementScript : MonoBehaviour
     // Soda boost (applies a constant acceleration in transform.up for a duration)
     // Acceleration is in world units (m/s^2). The code applies force = acceleration * mass
     public float sodaBoostAcceleration = 20f; // default acceleration applied while boosted
-    public float sodaBoostDuration = 1f;      // default duration in seconds
+    public float sodaBoostDuration = 2.5f;      // default duration in seconds
     private float sodaBoostTimeRemaining = 0f;
 
     void Start()
@@ -216,7 +216,6 @@ public class MovementScript : MonoBehaviour
         Animator.SetTrigger("StartHurt");
     }
 
-    // Increase the player's max health by 1 and also increase current health by 1.
     public void IncreaseMaxHealth()
     {
         maxHealth += 1;
@@ -235,7 +234,7 @@ public class MovementScript : MonoBehaviour
         }
         else
         {
-            if (ctx.performed)
+            if (ctx.started)
             {
                 SetUncharged();
                 Animator.ResetTrigger("ReleaseCharge");
@@ -257,18 +256,19 @@ public class MovementScript : MonoBehaviour
     public void OnUse(InputAction.CallbackContext ctx)
     {
         //Debug.Log("Kick input received");
-        if (ctx.performed)
+        if (ctx.started)
         {
-
-
+            Animator.SetTrigger("UseAbility");
         }
 
         if (ctx.canceled)
         {
-            print("hold release");
+            Animator.ResetTrigger("UseAbility");
         }
     }
 
-
-
+    public int getHealth()
+    {
+        return health;
+    }
 }
