@@ -216,7 +216,6 @@ public class MovementScript : MonoBehaviour
         Animator.SetTrigger("StartHurt");
     }
 
-    // Increase the player's max health by 1 and also increase current health by 1.
     public void IncreaseMaxHealth()
     {
         maxHealth += 1;
@@ -260,13 +259,16 @@ public class MovementScript : MonoBehaviour
         if (ctx.started)
         {
             Animator.SetTrigger("UseAbility");
-
-
         }
 
         if (ctx.canceled)
         {
             Animator.ResetTrigger("UseAbility");
         }
+    }
+
+    public int getHealth()
+    {
+        return health;
     }
 }
