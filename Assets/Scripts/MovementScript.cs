@@ -235,7 +235,7 @@ public class MovementScript : MonoBehaviour
         }
         else
         {
-            if (ctx.performed)
+            if (ctx.started)
             {
                 SetUncharged();
                 Animator.ResetTrigger("ReleaseCharge");
@@ -257,18 +257,16 @@ public class MovementScript : MonoBehaviour
     public void OnUse(InputAction.CallbackContext ctx)
     {
         //Debug.Log("Kick input received");
-        if (ctx.performed)
+        if (ctx.started)
         {
+            Animator.SetTrigger("UseAbility");
 
 
         }
 
         if (ctx.canceled)
         {
-            print("hold release");
+            Animator.ResetTrigger("UseAbility");
         }
     }
-
-
-
 }

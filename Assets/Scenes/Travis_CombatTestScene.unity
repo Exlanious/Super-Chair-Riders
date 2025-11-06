@@ -579,7 +579,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6074049188598685230, guid: b25488358aa1642c4b179fa57585e6f8, type: 3}
       propertyPath: itemName
-      value: Soda
+      value: sniper
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074049188598685230, guid: b25488358aa1642c4b179fa57585e6f8, type: 3}
+      propertyPath: minScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074049188598685230, guid: b25488358aa1642c4b179fa57585e6f8, type: 3}
+      propertyPath: autoStart
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6435419222542676884, guid: b25488358aa1642c4b179fa57585e6f8, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
