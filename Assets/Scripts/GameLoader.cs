@@ -26,8 +26,8 @@ public class GameLoader : MonoBehaviour
     {
         if (inputManager == null)
         {
-            manualMode = true;
-            Debug.LogWarning("[GameLoader] No DeviceManager found. Using manual mode (Space key).");
+            //manualMode = true;
+            Debug.LogWarning("[GameLoader] No DeviceManager found. ");
         }
 
         if (screenCoverup != null)
