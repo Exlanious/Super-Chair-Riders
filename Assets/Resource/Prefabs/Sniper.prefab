@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1664080555339290303
+--- !u!1 &8344229960471858226
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1594936362274500987}
-  - component: {fileID: 573400323381053729}
-  - component: {fileID: 6435419222542676884}
-  - component: {fileID: 7692089642225854321}
-  - component: {fileID: 6074049188598685230}
-  m_Layer: 9
-  m_Name: CollectableItem
-  m_TagString: Item
+  - component: {fileID: 6964633345613248351}
+  - component: {fileID: 4180326735503598378}
+  - component: {fileID: 6374427505462338709}
+  - component: {fileID: 2567701056547873324}
+  m_Layer: 0
+  m_Name: Sniper
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1594936362274500987
+--- !u!4 &6964633345613248351
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664080555339290303}
+  m_GameObject: {fileID: 8344229960471858226}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.15, y: -5.22, z: 0}
@@ -35,13 +34,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &573400323381053729
+--- !u!212 &4180326735503598378
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664080555339290303}
+  m_GameObject: {fileID: 8344229960471858226}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -90,13 +89,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6435419222542676884
+--- !u!61 &6374427505462338709
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664080555339290303}
+  m_GameObject: {fileID: 8344229960471858226}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -136,14 +135,14 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &7692089642225854321
+--- !u!50 &2567701056547873324
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664080555339290303}
+  m_GameObject: {fileID: 8344229960471858226}
   m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -163,21 +162,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6074049188598685230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664080555339290303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7caef214fc0446d97e6d784594637e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: sniper
-  autoStart: 1
-  flipRange: {x: -1, y: 1}
-  flipFrequency: 1
-  scaleRange: {x: 1, y: 1.5}
-  scaleFrequency: 0.2
