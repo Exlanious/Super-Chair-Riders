@@ -6,6 +6,7 @@ public class GameLoader : MonoBehaviour
 {
     [Header("Scene Settings")]
     public string sceneToLoad;
+    public KeyCode transitionKey;
 
     [Header("References")]
     public DeviceMananager inputManager;
@@ -27,7 +28,7 @@ public class GameLoader : MonoBehaviour
         if (inputManager == null)
         {
             //manualMode = true;
-            Debug.LogWarning("[GameLoader] No DeviceManager found. ");
+            Debug.LogWarning("[GameLoader] No DeviceManager found. Scene Transition can only be triggered manually. ");
         }
 
         if (screenCoverup != null)
@@ -45,20 +46,29 @@ public class GameLoader : MonoBehaviour
         if (screenCoverup != null)
             coroutine = LoadSceneWithCoverupCoroutine();
 
-        if (manualMode && Input.GetKeyDown(KeyCode.Space))
+        if (manualMode && Input.GetKeyDown(KeyCode.Return))
         {
             StartCoroutine(coroutine);
         }
 
         if (!manualMode && inputManager != null && inputManager.InputReady())
         {
-            StartCoroutine(coroutine);
+
+            if (Input.GetKeyDown(transitionKey))
+            {
+                StartCoroutine(coroutine);
+            }
         }
     }
 
     public void LoadScene()
     {
         StartCoroutine(LoadSceneCoroutine());
+    }
+
+    public void LoadSceneWithCoverUp()
+    {
+        StartCoroutine(LoadSceneWithCoverupCoroutine());
     }
 
     private IEnumerator LoadSceneCoroutine()

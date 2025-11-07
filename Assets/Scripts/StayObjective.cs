@@ -36,12 +36,14 @@ public class StayObjective : MonoBehaviour
     [SerializeField] private GameObject team21;
     [SerializeField] private GameObject team22;
 
-    [Header("GameEnd")]
-    [SerializeField] private GameLoader loader;
+    //[Header("GameEnd")]
+    //[SerializeField] private GameLoader loader;
 
     [Header("Runtime")]
     [SerializeField] private PlayerTime currentPlayerTime;
     [SerializeField] private List<MovementScript> players = new();
+    public bool locked = false;
+    public string teamWon = null;
 
     private void Awake()
     {
@@ -56,6 +58,9 @@ public class StayObjective : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //this target has been acquired
+        if (locked) { return; }
+
         string teamInZone;
         bool mixedTeams;
         AnalyzeTeamsInZone(out teamInZone, out mixedTeams);
@@ -116,8 +121,10 @@ public class StayObjective : MonoBehaviour
         // Win condition
         if (currentPlayerTime.time >= requiredTime)
         {
-            Debug.Log($"Team {currentPlayerTime.teamId} captured the objective!");
-            loader.LoadScene();
+            locked = true;
+            teamWon = teamInZone;
+            // Debug.Log($"Team {currentPlayerTime.teamId} captured the objective!");
+            //loader.LoadScene();
         }
     }
 
