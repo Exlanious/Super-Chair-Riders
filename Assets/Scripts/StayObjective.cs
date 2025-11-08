@@ -7,13 +7,13 @@ public class StayObjective : MonoBehaviour
     [System.Serializable]
     public class PlayerTime
     {
-        public string id;
+        public string teamId;
         public float time;
         public Color color;
 
-        public PlayerTime(string id, Color color, float time)
+        public PlayerTime(string teamId, Color color, float time)
         {
-            this.id = id;
+            this.teamId = teamId;
             this.color = color;
             this.time = time;
         }
@@ -25,85 +25,166 @@ public class StayObjective : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
 
     [Header("Settings")]
-    [SerializeField] private float requiredTime = 5f; // in seconds
-    [SerializeField] private bool useRandomColor = false;
+    [SerializeField] private float requiredTime = 5f;
+    [SerializeField] private Color defaultColor = Color.white;
 
-    [Header("GameEnd")]
-    [SerializeField] private GameLoader loader;
+    [Header("Teams")]
+    [SerializeField] private Color team1color;
+    [SerializeField] private GameObject team11;
+    [SerializeField] private GameObject team12;
+    [SerializeField] private Color team2color;
+    [SerializeField] private GameObject team21;
+    [SerializeField] private GameObject team22;
+
+    //[Header("GameEnd")]
+    //[SerializeField] private GameLoader loader;
 
     [Header("Runtime")]
     [SerializeField] private PlayerTime currentPlayerTime;
     [SerializeField] private List<MovementScript> players = new();
+    public bool locked = false;
+    public string teamWon = null;
 
-    void Awake()
+    private void Awake()
     {
         if (_collider == null)
             _collider = GetComponent<Collider2D>();
 
-        if (_collider == null)
-            Debug.LogError("No collider attached to the StayObjective.");
+        if (_renderer == null)
+            _renderer = GetComponent<SpriteRenderer>();
+
+        currentPlayerTime = new PlayerTime("", defaultColor, 0);
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        if (currentPlayerTime == null) return;
-        if (players.Count > 1) return;
+        //this target has been acquired
+        if (locked) { return; }
 
-        if (players.Count == 1)
+        string teamInZone;
+        bool mixedTeams;
+        AnalyzeTeamsInZone(out teamInZone, out mixedTeams);
+
+        if (mixedTeams)
         {
-            if (currentPlayerTime.id == players[0].playerId)
-                currentPlayerTime.time++;
-            else
-                currentPlayerTime.time--;
-
-            if (currentPlayerTime.time <= 0)
+            // Mixed teams -> decay
+            currentPlayerTime.time -= Time.fixedDeltaTime;
+        }
+        else if (!string.IsNullOrEmpty(teamInZone))
+        {
+            // Single team present
+            if (string.IsNullOrEmpty(currentPlayerTime.teamId))
             {
-                Color color = GetPlayerColor(players[0]);
-                currentPlayerTime = new PlayerTime(players[0].playerId, color, 0);
-                _renderer.color = color;
+                // No current owner -> start new capture
+                currentPlayerTime.teamId = teamInZone;
+                currentPlayerTime.color = GetTeamColor(teamInZone);
+                _renderer.color = currentPlayerTime.color;
+            }
+            else if (currentPlayerTime.teamId == teamInZone)
+            {
+                // Same team -> capture progress
+                currentPlayerTime.time += Time.fixedDeltaTime;
+            }
+            else
+            {
+                // Opposing team -> must drain first
+                currentPlayerTime.time -= Time.fixedDeltaTime;
+
+                // If fully drained, switch control
+                if (currentPlayerTime.time <= 0)
+                {
+                    currentPlayerTime.teamId = teamInZone;
+                    currentPlayerTime.color = GetTeamColor(teamInZone);
+                    _renderer.color = currentPlayerTime.color;
+                    currentPlayerTime.time = 0; // start fresh next frame
+                }
             }
         }
+        else
+        {
+            // No players -> do nothing
+        }
 
+        // Clamp progress
+        currentPlayerTime.time = Mathf.Clamp(currentPlayerTime.time, 0, requiredTime);
+
+        // Update scale display
+        scalePercentage.percentage = currentPlayerTime.time / requiredTime;
+
+        // Reset to neutral if fully decayed and no team holding
+        if (currentPlayerTime.time <= 0 && string.IsNullOrEmpty(teamInZone))
+        {
+            currentPlayerTime.teamId = "";
+            _renderer.color = defaultColor;
+        }
+
+        // Win condition
         if (currentPlayerTime.time >= requiredTime)
         {
-            Debug.Log($"Player {currentPlayerTime.id} won!");
-            loader.LoadScene();
+            locked = true;
+            teamWon = teamInZone;
+            // Debug.Log($"Team {currentPlayerTime.teamId} captured the objective!");
+            //loader.LoadScene();
         }
-
-        scalePercentage.percentage = currentPlayerTime.time / requiredTime;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        MovementScript playerMovement = collision.gameObject.GetComponent<MovementScript>();
-        if (playerMovement != null)
-        {
-            players.Add(playerMovement);
+        MovementScript player = collision.GetComponent<MovementScript>();
+        if (player != null && !players.Contains(player))
+            players.Add(player);
+    }
 
-            if (currentPlayerTime == null)
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        MovementScript player = collision.GetComponent<MovementScript>();
+        if (player != null)
+            players.Remove(player);
+    }
+
+    private void AnalyzeTeamsInZone(out string singleTeam, out bool mixedTeams)
+    {
+        singleTeam = null;
+        mixedTeams = false;
+
+        if (players.Count == 0)
+            return;
+
+        string firstTeam = GetPlayerTeam(players[0]);
+        foreach (var player in players)
+        {
+            if (player == null) continue;
+
+            string team = GetPlayerTeam(player);
+            if (team != firstTeam)
             {
-                Color color = GetPlayerColor(playerMovement);
-                currentPlayerTime = new PlayerTime(playerMovement.playerId, color, 0);
-                _renderer.color = color;
+                mixedTeams = true;
+                return;
             }
         }
+
+        singleTeam = firstTeam;
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    private string GetPlayerTeam(MovementScript player)
     {
-        MovementScript playerMovement = other.gameObject.GetComponent<MovementScript>();
-        if (playerMovement != null)
+        GameObject obj = player.gameObject;
+
+        if (obj == team11 || obj == team12)
+            return "Team1";
+        if (obj == team21 || obj == team22)
+            return "Team2";
+
+        return null;
+    }
+
+    private Color GetTeamColor(string teamId)
+    {
+        return teamId switch
         {
-            players.Remove(playerMovement);
-        }
-    }
-
-    private Color GetPlayerColor(MovementScript player)
-    {
-        if (useRandomColor)
-            return new Color(Random.value, Random.value, Random.value);
-
-        ColorIdentity id = player.GetComponent<ColorIdentity>();
-        return id != null ? id.color : Color.white;
+            "Team1" => team1color,
+            "Team2" => team2color,
+            _ => defaultColor
+        };
     }
 }
