@@ -46,7 +46,7 @@ public class GameLoader : MonoBehaviour
         if (screenCoverup != null)
             coroutine = LoadSceneWithCoverupCoroutine();
 
-        if (manualMode && Input.GetKeyDown(KeyCode.Return))
+        if (manualMode && Input.GetKeyDown(transitionKey))
         {
             StartCoroutine(coroutine);
         }
