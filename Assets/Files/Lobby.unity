@@ -452,7 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: Game
   transitionKey: 13
-  inputManager: {fileID: 0}
+  inputManager: {fileID: 567823129}
   screenCoverup: {fileID: 1648973553}
   endpoint: {x: 0, y: 0, z: 0}
   slideDuration: 1

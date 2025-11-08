@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
         player.player.transform.position = player.spawnpoint.position;
         player.player.transform.rotation = player.spawnpoint.rotation;
         yield return new WaitForSeconds(respawnTime);
+        player.mov.health = player.mov.maxHealth;
         player.player.SetActive(true);
     }
 }
