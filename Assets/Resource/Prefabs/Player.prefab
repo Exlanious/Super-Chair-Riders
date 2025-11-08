@@ -4925,7 +4925,7 @@ GameObject:
   - component: {fileID: 1884329587743446904}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5039,6 +5039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e2e623dcdf845ca8fa93e81ff9be61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sniperGun: {fileID: 7472338132909780580}
   isEnabled: 1
   playerId: Hero
   health: 3
@@ -5047,12 +5048,13 @@ MonoBehaviour:
   Animator: {fileID: 819957469059498974}
   maxSpeed: 10
   unchargedKickForce: 10
-  chargedKickForce: 100
-  unchargedKickOffForce: 1400
-  chargedKickOffForce: 1500
+  chargedKickForce: 25
+  unchargedKickOffForce: 350
+  chargedKickOffForce: 375
   BoostedKickMultiplier: 1
   defaultDamping: 0.6
   chargedDamping: 1
+  kickKnockbackForce: 250
   driftForce: 200
   requiredDriftSpeed: 5
   driftBuildUpRate: 1.5
@@ -5188,6 +5190,7 @@ MonoBehaviour:
   inventory:
   - 
   abilityHolderObject: {fileID: 841176009136156197}
+  Animator: {fileID: 0}
 --- !u!1 &3992102317934582178
 GameObject:
   m_ObjectHideFlags: 0
@@ -5217,7 +5220,7 @@ Transform:
   m_GameObject: {fileID: 3992102317934582178}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.5675393, y: -1.4792202, z: 0}
+  m_LocalPosition: {x: 0.127, y: -0.313, z: 0}
   m_LocalScale: {x: 0.51691, y: 0.15635997, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5476,7 +5479,7 @@ Transform:
   m_GameObject: {fileID: 4959405342319535393}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.56353927, y: -1.2672203, z: 0}
+  m_LocalPosition: {x: -0.029, y: -0.172, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

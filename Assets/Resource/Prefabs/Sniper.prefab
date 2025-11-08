@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4180326735503598378}
   - component: {fileID: 6374427505462338709}
   - component: {fileID: 2567701056547873324}
+  - component: {fileID: -7611991523321330717}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 8006961841527461841, guid: 9fb4605587e434350a3486b8b802eb83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,7 +128,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.92, y: 0.42}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -162,3 +163,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-7611991523321330717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8344229960471858226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7caef214fc0446d97e6d784594637e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: sniper
+  autoStart: 1
+  flipRange: {x: -1, y: 1}
+  flipFrequency: 1
+  scaleRange: {x: 0.7, y: 1.3}
+  scaleFrequency: 1

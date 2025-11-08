@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class MovementScript : MonoBehaviour
 {
-
+    public SniperLaser_Edge sniperGun;
 
     public bool isEnabled = true;
     public string playerId = "Hero";
@@ -31,6 +31,9 @@ public class MovementScript : MonoBehaviour
 
     private bool isCharged = false;
     private KickoffDetector kickoffDetector;
+
+    [Header("Combat")]
+    public float kickKnockbackForce = 250f;
 
     [Header("Drift Settings")]
     public float driftForce = 100f;
@@ -208,7 +211,7 @@ public class MovementScript : MonoBehaviour
     public void TakeDamage(Vector2 AttackDirection)
     {
         // Apply knockback
-        rb.AddForce(AttackDirection * 500f, ForceMode2D.Impulse);
+        rb.AddForce(AttackDirection * kickKnockbackForce, ForceMode2D.Impulse);
 
         // Decrease health (clamped at zero)
         health = Mathf.Max(0, health - 1);
@@ -270,5 +273,14 @@ public class MovementScript : MonoBehaviour
     public int getHealth()
     {
         return health;
+    }
+
+    public void fireSniper()
+    {
+        if (sniperGun != null)
+        {
+            sniperGun.Fire();
+        }
+
     }
 }
