@@ -21,6 +21,9 @@ public class GameLoader : MonoBehaviour
     private bool active = false;
     private bool isLoading = false;
 
+    [Header("Timing")]
+    [SerializeField] private float activateDelay = 0.5f;
+
     private Vector3 coverupStartPos;
 
     void Start()
@@ -110,7 +113,7 @@ public class GameLoader : MonoBehaviour
 
     private IEnumerator ActivateDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(activateDelay);
         active = true;
     }
 }

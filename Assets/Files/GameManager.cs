@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour
     //temporary respawn
     private IEnumerator Respawn(PlayerSettings player)
     {
+        yield return new WaitForSeconds(0.3f);
+
         player.player.SetActive(false);
         player.player.transform.position = player.spawnpoint.position;
         player.player.transform.rotation = player.spawnpoint.rotation;

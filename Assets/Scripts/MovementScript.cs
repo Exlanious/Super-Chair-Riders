@@ -99,6 +99,7 @@ public class MovementScript : MonoBehaviour
         }
     }
 
+
     void defaultDamp()
     {
         rb.linearDamping = defaultDamping;
@@ -215,8 +216,15 @@ public class MovementScript : MonoBehaviour
 
         // Decrease health (clamped at zero)
         health = Mathf.Max(0, health - 1);
-
-        Animator.SetTrigger("StartHurt");
+        // either StartHurt or StartDeath based on health
+        if (health <= 0)
+        {
+            Animator.SetTrigger("StartDeath");
+        }
+        else
+        {
+            Animator.SetTrigger("StartHurt");
+        }
     }
 
     public void IncreaseMaxHealth()
