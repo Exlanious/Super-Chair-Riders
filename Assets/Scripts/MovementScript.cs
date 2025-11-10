@@ -52,6 +52,7 @@ public class MovementScript : MonoBehaviour
 
     void Start()
     {
+        SFXManager.Instance.PlaySFX(0);
         kickoffDetector = GetComponentInChildren<KickoffDetector>();
         rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
