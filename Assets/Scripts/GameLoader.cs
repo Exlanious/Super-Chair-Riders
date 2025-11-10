@@ -16,6 +16,7 @@ public class GameLoader : MonoBehaviour
     public Vector3 endpoint = Vector3.zero;
     public float slideDuration = 1.0f;
     public AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public float coverupTime = 1f;
 
     [SerializeField] private bool manualMode = false;
     private bool active = false;
@@ -109,6 +110,7 @@ public class GameLoader : MonoBehaviour
         }
 
         screenCoverup.position = end;
+        yield return new WaitForSeconds(coverupTime);
     }
 
     private IEnumerator ActivateDelay()

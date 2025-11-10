@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +27,9 @@ public class GameManager : MonoBehaviour
     public Color team1Color, team2Color;
     public List<StayObjective> objectives;
     public SpriteRenderer endPanel;
+    public Image endPanelUI;
+    public TextMeshProUGUI endPanelText;
+
     public GameLoader loader;
 
 
@@ -68,10 +73,13 @@ public class GameManager : MonoBehaviour
         if (team1WinCount >= Mathf.Ceil(objectives.Count / 2f))
         {
             endPanel.color = team1Color; teamWon = "Team 1";
+            endPanelUI.color = team1Color; endPanelText.text = "Team 1 Wins!";
         }
         if (team2WinCount >= Mathf.Ceil(objectives.Count / 2f))
         {
             endPanel.color = team2Color; teamWon = "Team 2";
+            endPanelUI.color = team2Color; endPanelText.text = "Team 2 Wins!";
+
         }
 
         if (teamWon != null)
