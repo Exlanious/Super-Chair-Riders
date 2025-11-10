@@ -1851,6 +1851,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2955740404143238421, guid: e47dbf58ee1514b87afd930f8ddb0853, type: 3}
+      propertyPath: itemName
+      value: sniper
+      objectReference: {fileID: 0}
     - target: {fileID: 4193561913230028577, guid: e47dbf58ee1514b87afd930f8ddb0853, type: 3}
       propertyPath: m_Name
       value: Soda

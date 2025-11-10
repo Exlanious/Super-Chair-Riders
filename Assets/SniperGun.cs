@@ -7,7 +7,7 @@ public class SniperLaser_Edge : MonoBehaviour
 {
     [Header("Laser Settings")]
     [SerializeField] private float laserLength = 20f;
-    [SerializeField] private float damage = 1f;
+    [SerializeField] private float damage = 3f;
     [SerializeField] private float duration = 0.1f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask environmentLayer;
@@ -39,12 +39,12 @@ public class SniperLaser_Edge : MonoBehaviour
         Gradient gradient = new Gradient();
         gradient.SetKeys(
             new GradientColorKey[] {
-            new GradientColorKey(new Color(0f, 0.4f, 1f), 0f),   
-            new GradientColorKey(new Color(0.6f, 0.9f, 1f), 1f) 
+            new GradientColorKey(new Color(0f, 0.4f, 1f), 0f),
+            new GradientColorKey(new Color(0.6f, 0.9f, 1f), 1f)
             },
             new GradientAlphaKey[] {
-            new GradientAlphaKey(1f, 0f),   
-            new GradientAlphaKey(0.2f, 1f)  
+            new GradientAlphaKey(1f, 0f),
+            new GradientAlphaKey(0.2f, 1f)
             }
         );
         lineRenderer.colorGradient = gradient;
@@ -115,7 +115,7 @@ public class SniperLaser_Edge : MonoBehaviour
             {
                 target.health -= Mathf.RoundToInt(damage);
                 if (debug)
-                    Debug.Log($"[SniperLaser_Edge] Hit {other.name} ¡ú -{damage} HP");
+                    Debug.Log($"[SniperLaser_Edge] Hit {other.name} ï¿½ï¿½ -{damage} HP");
             }
         }
     }

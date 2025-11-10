@@ -5050,8 +5050,8 @@ MonoBehaviour:
   maxSpeed: 10
   unchargedKickForce: 10
   chargedKickForce: 25
-  unchargedKickOffForce: 350
-  chargedKickOffForce: 375
+  unchargedKickOffForce: 250
+  chargedKickOffForce: 350
   BoostedKickMultiplier: 1
   defaultDamping: 0.6
   chargedDamping: 1

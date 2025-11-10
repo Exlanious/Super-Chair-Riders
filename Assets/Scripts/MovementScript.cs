@@ -46,7 +46,7 @@ public class MovementScript : MonoBehaviour
 
     // Soda boost (applies a constant acceleration in transform.up for a duration)
     // Acceleration is in world units (m/s^2). The code applies force = acceleration * mass
-    public float sodaBoostAcceleration = 20f; // default acceleration applied while boosted
+    public float sodaBoostAcceleration = 100f; // default acceleration applied while boosted
     public float sodaBoostDuration = 2.5f;      // default duration in seconds
     private float sodaBoostTimeRemaining = 0f;
 
