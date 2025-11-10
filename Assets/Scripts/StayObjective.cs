@@ -27,6 +27,8 @@ public class StayObjective : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float requiredTime = 5f;
     [SerializeField] private Color defaultColor = Color.white;
+    [Tooltip("When no players are inside the objective, this rate (units/sec) will drain capture progress back toward zero.")]
+    [SerializeField] private float passiveDrainRate = 1f;
 
     [Header("Teams")]
     [SerializeField] private Color team1color;
@@ -102,7 +104,8 @@ public class StayObjective : MonoBehaviour
         }
         else
         {
-            // No players -> do nothing
+            // No players -> passive drain towards neutral
+            currentPlayerTime.time -= passiveDrainRate * Time.fixedDeltaTime;
         }
 
         // Clamp progress
