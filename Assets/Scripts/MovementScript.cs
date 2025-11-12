@@ -52,7 +52,6 @@ public class MovementScript : MonoBehaviour
 
     void Start()
     {
-        SFXManager.Instance.PlaySFX(0);
         kickoffDetector = GetComponentInChildren<KickoffDetector>();
         rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
@@ -162,9 +161,11 @@ public class MovementScript : MonoBehaviour
     {
         // Choose base force depending on charged state and whether a kickoff is possible
         float forceToApply = isCharged ? chargedKickForce : unchargedKickForce;
+        // If a kickoff is possible, use the kickoff forces instead
         if (kickoffDetector != null && kickoffDetector.GetKickoffPossible())
         {
             forceToApply = isCharged ? chargedKickOffForce : unchargedKickOffForce;
+            playSFXConnect();
         }
 
         // Apply global boosted multiplier
@@ -248,6 +249,7 @@ public class MovementScript : MonoBehaviour
         {
             if (ctx.started)
             {
+
                 SetUncharged();
                 Animator.ResetTrigger("ReleaseCharge");
                 Animator.SetTrigger("StartCharge");
@@ -291,5 +293,20 @@ public class MovementScript : MonoBehaviour
             sniperGun.Fire();
         }
 
+    }
+
+    public void playSFXKick()
+    {
+        SFXManager.Instance.PlaySFX(0);
+    }
+
+    public void playSFXConnect()
+    {
+        SFXManager.Instance.PlaySFX(1);
+    }
+
+    public void playSFXhit()
+    {
+        SFXManager.Instance.PlaySFX(2);
     }
 }

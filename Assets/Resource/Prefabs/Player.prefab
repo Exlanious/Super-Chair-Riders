@@ -5048,8 +5048,8 @@ MonoBehaviour:
   rb: {fileID: 1957943061008713656}
   Animator: {fileID: 819957469059498974}
   maxSpeed: 10
-  unchargedKickForce: 10
-  chargedKickForce: 25
+  unchargedKickForce: 30
+  chargedKickForce: 75
   unchargedKickOffForce: 250
   chargedKickOffForce: 350
   BoostedKickMultiplier: 1
