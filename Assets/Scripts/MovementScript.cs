@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class MovementScript : MonoBehaviour
 {
-
+    public SniperLaser_Edge sniperGun;
 
     public bool isEnabled = true;
     public string playerId = "Hero";
@@ -32,6 +32,9 @@ public class MovementScript : MonoBehaviour
     private bool isCharged = false;
     private KickoffDetector kickoffDetector;
 
+    [Header("Combat")]
+    public float kickKnockbackForce = 250f;
+
     [Header("Drift Settings")]
     public float driftForce = 100f;
     public float requiredDriftSpeed = 3f;
@@ -43,7 +46,7 @@ public class MovementScript : MonoBehaviour
 
     // Soda boost (applies a constant acceleration in transform.up for a duration)
     // Acceleration is in world units (m/s^2). The code applies force = acceleration * mass
-    public float sodaBoostAcceleration = 20f; // default acceleration applied while boosted
+    public float sodaBoostAcceleration = 100f; // default acceleration applied while boosted
     public float sodaBoostDuration = 2.5f;      // default duration in seconds
     private float sodaBoostTimeRemaining = 0f;
 
@@ -95,6 +98,7 @@ public class MovementScript : MonoBehaviour
             Animator.SetTrigger("ReleaseCharge");
         }
     }
+
 
     void defaultDamp()
     {
@@ -157,9 +161,11 @@ public class MovementScript : MonoBehaviour
     {
         // Choose base force depending on charged state and whether a kickoff is possible
         float forceToApply = isCharged ? chargedKickForce : unchargedKickForce;
+        // If a kickoff is possible, use the kickoff forces instead
         if (kickoffDetector != null && kickoffDetector.GetKickoffPossible())
         {
             forceToApply = isCharged ? chargedKickOffForce : unchargedKickOffForce;
+            playSFXConnect();
         }
 
         // Apply global boosted multiplier
@@ -208,12 +214,19 @@ public class MovementScript : MonoBehaviour
     public void TakeDamage(Vector2 AttackDirection)
     {
         // Apply knockback
-        rb.AddForce(AttackDirection * 500f, ForceMode2D.Impulse);
+        rb.AddForce(AttackDirection * kickKnockbackForce, ForceMode2D.Impulse);
 
         // Decrease health (clamped at zero)
         health = Mathf.Max(0, health - 1);
-
-        Animator.SetTrigger("StartHurt");
+        // either StartHurt or StartDeath based on health
+        if (health <= 0)
+        {
+            Animator.SetTrigger("StartDeath");
+        }
+        else
+        {
+            Animator.SetTrigger("StartHurt");
+        }
     }
 
     public void IncreaseMaxHealth()
@@ -236,6 +249,7 @@ public class MovementScript : MonoBehaviour
         {
             if (ctx.started)
             {
+
                 SetUncharged();
                 Animator.ResetTrigger("ReleaseCharge");
                 Animator.SetTrigger("StartCharge");
@@ -270,5 +284,29 @@ public class MovementScript : MonoBehaviour
     public int getHealth()
     {
         return health;
+    }
+
+    public void fireSniper()
+    {
+        if (sniperGun != null)
+        {
+            sniperGun.Fire();
+        }
+
+    }
+
+    public void playSFXKick()
+    {
+        SFXManager.Instance.PlaySFX(0);
+    }
+
+    public void playSFXConnect()
+    {
+        SFXManager.Instance.PlaySFX(1);
+    }
+
+    public void playSFXhit()
+    {
+        SFXManager.Instance.PlaySFX(2);
     }
 }
